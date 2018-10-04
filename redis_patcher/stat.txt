@@ -1,0 +1,10 @@
+PATTERN;SOURCE;REDIS_CMD
+zzzz;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:34;DEL
+reuters:irs:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:32;SET
+aaa:*:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:40;GET
+aaa:*:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:37;SET
+bond:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:21;HMSET
+reuters:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:30;SET
+reuters:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:29;SET
+user:*:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:17;HMSET
+bond:*:daily:*;G:/Work/SkyBonds/oxford/redis_patcher/test_patch:26;HMSET

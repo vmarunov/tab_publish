@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+import pickle
+from random import randint, choice
+from string import ascii_uppercase, digits
+
+import redis
+
+from redis_patch import patch_redis, save_stat
+
+patch_redis(redis.Redis)
+
+
+if __name__ == '__main__':
+    r = redis.Redis()
+    for cnt in range(10):
+        id = randint(0, 200)
+        r.hmset('user:{}:info'.format(id), {'id': id, 'name': 'name'})
+
+    for cnt in range(10):
+        isin = ''.join(choice(ascii_uppercase + digits) for _ in range(10))
+        r.hmset('bond:{}:info'.format(isin), {'isin': isin, 'name': 'name'})
+        for date in range(10):
+            r.hmset(
+                'bond:{}:daily:{}'.format(isin, date),
+                {'yield': randint(0, 100) / 100.0,
+                 'duration': randint(0, 100) / 10.0})
+
+    for cnt in range(10):
+        r.set('reuters:ts1:{}'.format(cnt), cnt)
+        r.set('reuters:ts2:{}'.format(cnt), cnt)
+        for date in range(10):
+            r.set('reuters:irs:{}:{}'.format(cnt, date), cnt)
+
+    r.delete('zzzz')
+
+    series_name_user, source_series_author = 'aaa', 'bbb'
+    r.set('%s:%s:timeseries:series_name_system' % (series_name_user, source_series_author), pickle.dumps({'a': '123'}))
+
+    source_series_name_system = pickle.loads(r.get(\
+        '%s:%s:timeseries:series_name_system' % (series_name_user, source_series_author)))
+
+    save_stat('stat.txt', raw=False)
